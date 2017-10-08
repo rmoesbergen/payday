@@ -313,14 +313,26 @@ def main():
                 print "*** ERROR: Save file is corrupted"
                 continue
             print "Steam64ID inside save098.sav is: " + save.get_id()
+            for field in save:
+                print "%s" % field
+                if isinstance(save[field], OrderedDict):
+                    for k in save[field]:
+                        print k
+                        
+            #print b2a_hex(save['ExperienceManager']['level'])
+
             print save['MoneyManager']['offshore']
             save['MoneyManager']['offshore'] = '\xcb\xdf\xd0\xc1\xca\xa3\xc5\x85\xc8g\xc6I\xc6+\x99\r\xd3\xed\xce\xcf\xce\xb1\xc6\x93'
+            save['MoneyManager']['total'] = '\xcb\xdf\xd0\xc1\xca\xa3\xc5\x85\xc8g\xc6I\xc6+\x99\r\xd3\xed\xce\xcf\xce\xb1\xc6\x93'
+            save['CustomSafehouseManager']['total'] = '\xc6\xdf\xc6\xdf\xc9\xc1'
             save.save('new.sav')
         elif option != "6":
             print "Unknown option."
 
 if __name__ == '__main__':
     main()
+
+# 85 = C6 DF C9 C1
 
 # CE DF = 0
 # C6 DF = 9
@@ -329,4 +341,3 @@ if __name__ == '__main__':
 
 # 357.000.000 = 
 # '\xcb\xdf\xd0\xc1\xca\xa3\xc5\x85\xc8g\xc6I\xc6+\x99\r\xd3\xed\xce\xcf\xce\xb1\xc6\x93'
-
